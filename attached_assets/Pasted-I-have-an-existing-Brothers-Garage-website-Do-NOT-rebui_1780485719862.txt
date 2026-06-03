@@ -1,0 +1,69 @@
+I have an existing Brothers Garage website. Do NOT rebuild it from scratch — 
+only ADD the following new components to the existing codebase in the correct positions:
+
+---
+
+1. STICKY NAVIGATION (add at very top of page)
+- Logo on the left ("Brothers Garage" or existing logo)
+- Nav links: Home, Services, Gallery, Contact
+- Phone number on the right
+- "Book Now" CTA button (orange/red accent color)
+- Stays fixed at top while scrolling, with a slight background blur/shadow on scroll
+
+---
+
+2. OPENING HOURS BAR (just below sticky nav)
+- Thin banner bar showing: "Mon–Fri & Sun: 8:00 AM – 7:00 PM  |  Saturday: Closed"
+- Show dynamic status: green "Open Now" or red "Closed" badge based on current time and day
+- Use Nepal Time (Asia/Kathmandu, UTC+5:45)
+
+---
+
+3. STRONG HERO BANNER (insert BEFORE the existing bike scroll/product section)
+- Full-width, tall hero (min-height 90vh)
+- Background: dark overlay on a garage/automotive themed image or solid dark color
+- Headline: "Your Trusted Auto & Bike Service Partner"
+- Subheadline: "Quality repairs, honest pricing — right here in Imadol, Lalitpur"
+- Two CTA buttons: "Book a Service" (primary) and "WhatsApp Us" (secondary, green)
+- Subtle animated element (e.g. fade-in text or floating scroll arrow)
+
+---
+
+4. WHATSAPP FLOATING BUTTON (add globally, visible on all scroll positions)
+- Fixed bottom-right corner
+- Green WhatsApp icon button
+- On click, opens: https://wa.me/977XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20book%20a%20service
+  (replace with actual WhatsApp number)
+- Subtle pulse animation to draw attention
+- Tooltip on hover: "Chat with us on WhatsApp"
+
+---
+
+5. GALLERY SECTION (insert BEFORE the map/footer section)
+- Section heading: "Our Work"
+- Layout using CSS Grid — exactly this structure:
+    Row 1: 1 full-width image (spans all columns)
+    Row 2: 2 equal images side by side
+    Row 3: 1 full-width image (spans all columns)
+- Total: 4 images
+- Use placeholder images for now (real garage/car repair photos to be swapped in later)
+- Images should have a subtle hover zoom effect
+- Rounded corners, small gap between grid items
+
+---
+
+6. EMBEDDED GOOGLE MAP (full-width banner, insert AFTER gallery and BEFORE footer)
+- Section heading: "Find Us"
+- Address text: "Imadol, Lalitpur, Nepal"
+- Full-width embedded Google Map iframe using this link:
+  https://www.google.com/maps/place/Brother's+Garage/@27.6496216,85.3365419,14z/data=!4m10!1m2!2m1!1sbrother+garage+location+imadol!3m6!1s0x39eb11b537a05f41:0xdb95a0ea23ecf68!8m2!3d27.6496216!4d85.360223!15sCh5icm90aGVyIGdhcmFnZSBsb2NhdGlvbiBpbWFkb2ySARBtYWNoaW5lX3dvcmtzaG9w4AEA!16s%2Fg%2F11kbpfwcl_?entry=ttu
+- Map height: 450px, no border, full width
+- Below map: show address, phone, and hours in a clean 3-column info row
+
+---
+
+IMPORTANT RULES:
+- Do NOT modify or remove any existing sections (bike scroll, product listings, etc.)
+- Match the existing site's color scheme and font style
+- All new sections must be fully mobile responsive
+- Use the existing CSS framework/stack already in the project

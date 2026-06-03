@@ -769,117 +769,314 @@ export default function App() {
                   <stop offset="0%" stopColor="hsl(46,79%,54%)" />
                   <stop offset="100%" stopColor="#8c6a0b" />
                 </linearGradient>
+                <filter id="hglow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="4" result="b" />
+                  <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
               </defs>
 
-              {/* Frame */}
+              {/* ── 15. FRAME / CHASSIS ── */}
               <motion.g className="svg-part" style={{ rotate: frR, opacity: frO }}>
-                <path d="M 250 200 L 550 200 L 450 350 L 300 350 Z" fill="#222" stroke="#444" strokeWidth="4" />
-                <path d="M 550 200 L 600 250 L 450 350" fill="none" stroke="#333" strokeWidth="8" />
+                {/* Main backbone tube */}
+                <path d="M 258 188 C 370 172 440 175 508 205 L 556 272" fill="none" stroke="url(#gold-grad)" strokeWidth="9" strokeLinecap="round" />
+                {/* Down tube */}
+                <path d="M 260 210 Q 322 268 364 310" fill="none" stroke="#888" strokeWidth="8" strokeLinecap="round" />
+                {/* Engine cradle rail */}
+                <path d="M 364 310 L 464 393" fill="none" stroke="#888" strokeWidth="8" strokeLinecap="round" />
+                {/* Head tube */}
+                <path d="M 245 175 L 262 220" stroke="#bbb" strokeWidth="17" strokeLinecap="round" />
+                <path d="M 245 175 L 262 220" stroke="#333" strokeWidth="10" strokeLinecap="round" />
+                {/* Rear seat stays */}
+                <path d="M 554 272 L 622 387" fill="none" stroke="#666" strokeWidth="6" strokeLinecap="round" />
+                {/* Upper sub-frame */}
+                <path d="M 502 200 L 556 272" fill="none" stroke="#555" strokeWidth="5" strokeLinecap="round" />
+                {/* Cross brace */}
+                <path d="M 330 270 L 385 298" fill="none" stroke="#444" strokeWidth="4" strokeLinecap="round" />
+                {/* Gusset at head tube */}
+                <path d="M 248 212 L 292 262 L 278 266 L 235 218 Z" fill="#1a1a1a" stroke="#333" strokeWidth="1" />
+                {/* Flat narrow MX seat */}
+                <path d="M 460 188 L 578 218 L 578 236 L 460 208 Z" fill="#0d0d0d" stroke="#2a2a2a" strokeWidth="2" />
+                <line x1="464" y1="189" x2="576" y2="219" stroke="hsl(46,79%,54%)" strokeWidth="1.5" opacity="0.55" />
+                <line x1="472" y1="196" x2="576" y2="223" stroke="#1e1e1e" strokeWidth="1" />
+                <line x1="490" y1="200" x2="576" y2="226" stroke="#1e1e1e" strokeWidth="1" />
+                <line x1="510" y1="203" x2="576" y2="228" stroke="#1e1e1e" strokeWidth="1" />
+                <SvgLabel x={372} y={148} text="15. Frame" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Rear Wheel */}
+              {/* ── 2. REAR KNOBBY TIRE ── */}
               <motion.g className="svg-part" style={{ x: rwX, y: rwY, rotate: rwR }}>
-                <circle cx="650" cy="350" r="80" fill="none" stroke="#111" strokeWidth="24" />
-                <circle cx="650" cy="350" r="65" fill="none" stroke="#333" strokeWidth="4" />
-                <circle cx="650" cy="350" r="15" fill="url(#gold-grad)" />
-                {[0,45,90,135,180,225,270,315].map((d) => (
-                  <line key={d} x1="650" y1="350" x2={650+Math.cos(d*Math.PI/180)*65} y2={350+Math.sin(d*Math.PI/180)*65} stroke="#555" strokeWidth="4" />
+                {/* Tire carcass */}
+                <circle cx="620" cy="392" r="70" fill="none" stroke="#0c0c0c" strokeWidth="26" />
+                {/* Sidewall inner edge */}
+                <circle cx="620" cy="392" r="59" fill="none" stroke="#1e1e1e" strokeWidth="2" />
+                {/* Knobby tread — alternating thick/narrow radial blocks */}
+                {Array.from({ length: 24 }, (_, i) => {
+                  const a = (i / 24) * Math.PI * 2;
+                  const big = i % 3 !== 2;
+                  return (
+                    <line key={i}
+                      x1={620 + Math.cos(a) * 57} y1={392 + Math.sin(a) * 57}
+                      x2={620 + Math.cos(a) * 70} y2={392 + Math.sin(a) * 70}
+                      stroke={big ? "#2e2e2e" : "#111"}
+                      strokeWidth={big ? 8 : 4} strokeLinecap="round"
+                    />
+                  );
+                })}
+                {/* Rim ring */}
+                <circle cx="620" cy="392" r="50" fill="none" stroke="#2a2a2a" strokeWidth="2" />
+                {/* Spokes */}
+                {[0, 60, 120, 180, 240, 300].map((d) => (
+                  <line key={d}
+                    x1={620 + Math.cos(d*Math.PI/180)*18} y1={392 + Math.sin(d*Math.PI/180)*18}
+                    x2={620 + Math.cos(d*Math.PI/180)*49} y2={392 + Math.sin(d*Math.PI/180)*49}
+                    stroke="#555" strokeWidth="4"
+                  />
                 ))}
-                <SvgLabel x={610} y={220} text="2. Rear Wheel" opacity={labelsOpacity} />
+                {/* Hub */}
+                <circle cx="620" cy="392" r="18" fill="url(#gold-grad)" />
+                <circle cx="620" cy="392" r="10" fill="#111" />
+                <circle cx="620" cy="392" r="5"  fill="#888" />
+                <SvgLabel x={575} y={262} text="2. Rear Knobby Tire" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Front Wheel */}
+              {/* ── 1. FRONT KNOBBY TIRE ── */}
               <motion.g className="svg-part" style={{ x: fwX, y: fwY, rotate: fwR }}>
-                <circle cx="150" cy="350" r="80" fill="none" stroke="#111" strokeWidth="24" />
-                <circle cx="150" cy="350" r="65" fill="none" stroke="#333" strokeWidth="4" />
-                <circle cx="150" cy="350" r="15" fill="url(#gold-grad)" />
-                {[0,45,90,135,180,225,270,315].map((d) => (
-                  <line key={d} x1="150" y1="350" x2={150+Math.cos(d*Math.PI/180)*65} y2={350+Math.sin(d*Math.PI/180)*65} stroke="#555" strokeWidth="4" />
+                <circle cx="165" cy="392" r="70" fill="none" stroke="#0c0c0c" strokeWidth="26" />
+                <circle cx="165" cy="392" r="59" fill="none" stroke="#1e1e1e" strokeWidth="2" />
+                {Array.from({ length: 24 }, (_, i) => {
+                  const a = (i / 24) * Math.PI * 2;
+                  const big = i % 3 !== 2;
+                  return (
+                    <line key={i}
+                      x1={165 + Math.cos(a) * 57} y1={392 + Math.sin(a) * 57}
+                      x2={165 + Math.cos(a) * 70} y2={392 + Math.sin(a) * 70}
+                      stroke={big ? "#2e2e2e" : "#111"}
+                      strokeWidth={big ? 8 : 4} strokeLinecap="round"
+                    />
+                  );
+                })}
+                <circle cx="165" cy="392" r="50" fill="none" stroke="#2a2a2a" strokeWidth="2" />
+                {[0, 60, 120, 180, 240, 300].map((d) => (
+                  <line key={d}
+                    x1={165 + Math.cos(d*Math.PI/180)*18} y1={392 + Math.sin(d*Math.PI/180)*18}
+                    x2={165 + Math.cos(d*Math.PI/180)*49} y2={392 + Math.sin(d*Math.PI/180)*49}
+                    stroke="#555" strokeWidth="4"
+                  />
                 ))}
-                <SvgLabel x={50} y={220} text="1. Front Wheel" opacity={labelsOpacity} />
+                <circle cx="165" cy="392" r="18" fill="url(#gold-grad)" />
+                <circle cx="165" cy="392" r="10" fill="#111" />
+                <circle cx="165" cy="392" r="5"  fill="#888" />
+                <SvgLabel x={38} y={262} text="1. Front Knobby Tire" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Engine Block */}
+              {/* ── 9. ENGINE / CARBURETOR ── */}
               <motion.g className="svg-part" style={{ y: enY }}>
-                <rect x="350" y="240" width="120" height="100" rx="10" fill="#1a1a1a" stroke="url(#gold-grad)" strokeWidth="2" />
-                <rect x="360" y="250" width="100" height="10" fill="#333" />
-                <rect x="360" y="270" width="100" height="10" fill="#333" />
-                <rect x="360" y="290" width="100" height="10" fill="#333" />
-                <rect x="360" y="310" width="100" height="10" fill="#333" />
-                <circle cx="410" cy="290" r="25" fill="#111" stroke="#444" strokeWidth="4" />
-                <SvgLabel x={350} y={350} text="6. Engine Block" opacity={labelsOpacity} />
+                {/* Engine block */}
+                <rect x="360" y="305" width="108" height="88" rx="6" fill="#141414" stroke="url(#gold-grad)" strokeWidth="2" />
+                {/* Cylinder head (angled forward) */}
+                <path d="M 362 305 L 408 305 L 390 255 L 345 263 Z" fill="#1c1c1c" stroke="#555" strokeWidth="1.5" />
+                {/* Cylinder cooling fins */}
+                {[0,1,2,3,4].map((i) => (
+                  <line key={i} x1={348+i*3} y1={263+i*8} x2={393+i*3} y2={257+i*8} stroke="#333" strokeWidth="1.5" />
+                ))}
+                {/* Carb intake stub */}
+                <rect x="382" y="247" width="26" height="16" rx="3" fill="#111" stroke="#444" strokeWidth="1.5" />
+                {/* Engine case cooling fins */}
+                {[319, 333, 347, 361, 375].map((y, i) => (
+                  <line key={i} x1="362" y1={y} x2="460" y2={y} stroke="#222" strokeWidth="1" />
+                ))}
+                {/* Side cover */}
+                <rect x="422" y="316" width="38" height="58" rx="4" fill="#111" stroke="#333" strokeWidth="1" />
+                <circle cx="441" cy="345" r="12" fill="#0d0d0d" stroke="#444" strokeWidth="2" />
+                <circle cx="441" cy="345" r="5"  fill="#2a2a2a" />
+                {/* Drain bolt */}
+                <circle cx="382" cy="386" r="4" fill="#666" stroke="#888" strokeWidth="1" />
+                <SvgLabel x={360} y={400} text="9. Engine / Carburetor" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Exhaust */}
+              {/* ── 14. HIGH-MOUNT EXHAUST ── */}
               <motion.g className="svg-part" style={{ x: exX, y: exY, rotate: exR }}>
-                <path d="M 410 330 Q 450 380 500 360 L 680 300" fill="none" stroke="#666" strokeWidth="16" strokeLinecap="round" />
-                <path d="M 600 330 L 700 290 L 700 310 L 600 350 Z" fill="#222" stroke="url(#gold-grad)" strokeWidth="2" />
-                <SvgLabel x={610} y={350} text="9. Exhaust Pipe" opacity={labelsOpacity} />
+                {/* Header from engine */}
+                <path d="M 456 348 Q 470 332 474 312" fill="none" stroke="#888" strokeWidth="14" strokeLinecap="round" />
+                {/* Mid pipe routing upward */}
+                <path d="M 474 312 Q 492 282 500 255 Q 514 225 524 200" fill="none" stroke="#666" strokeWidth="12" strokeLinecap="round" />
+                {/* Heat shield strips */}
+                {[305, 278, 252].map((y, i) => (
+                  <rect key={i} x={478+i*8} y={y-5} width="18" height="9" rx="3"
+                    fill="#333" stroke="#555" strokeWidth="1"
+                    transform={`rotate(-20,${487+i*8},${y})`} />
+                ))}
+                {/* Up pipe to silencer */}
+                <path d="M 524 200 Q 538 178 552 162" fill="none" stroke="#555" strokeWidth="10" strokeLinecap="round" />
+                {/* Silencer / end can */}
+                <path d="M 548 155 L 594 142 L 596 157 L 550 170 Z" fill="#1a1a1a" stroke="url(#gold-grad)" strokeWidth="2" />
+                {/* Tip */}
+                <circle cx="595" cy="150" r="7" fill="#111" stroke="#888" strokeWidth="2" />
+                <line x1="590" y1="143" x2="590" y2="157" stroke="#555" strokeWidth="1.5" />
+                <SvgLabel x={545} y={112} text="14. High-Mount Exhaust" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Front Fork */}
+              {/* ── 3. LONG TRAVEL FRONT FORK ── */}
               <motion.g className="svg-part" style={{ x: fkX, y: fkY, rotate: fkR }}>
-                <line x1="150" y1="350" x2="250" y2="150" stroke="url(#gold-grad)" strokeWidth="12" strokeLinecap="round" />
-                <line x1="155" y1="352" x2="255" y2="152" stroke="#888" strokeWidth="4" strokeLinecap="round" />
-                <SvgLabel x={170} y={200} text="8. Suspension" opacity={labelsOpacity} />
+                {/* Right stanchion (gold accent) */}
+                <line x1="182" y1="322" x2="266" y2="170" stroke="url(#gold-grad)" strokeWidth="11" strokeLinecap="round" />
+                {/* Left stanchion */}
+                <line x1="152" y1="322" x2="236" y2="170" stroke="#999" strokeWidth="8" strokeLinecap="round" />
+                {/* Fork crown / triple clamp */}
+                <path d="M 233 170 L 270 170 L 266 153 L 237 153 Z" fill="#1a1a1a" stroke="#666" strokeWidth="2" />
+                {/* Dust seals */}
+                <rect x="147" y="293" width="18" height="14" rx="3" fill="#222" stroke="#555" strokeWidth="1.5" />
+                <rect x="178" y="293" width="18" height="14" rx="3" fill="#222" stroke="#555" strokeWidth="1.5" />
+                {/* Axle clamps */}
+                <rect x="143" y="320" width="26" height="11" rx="3" fill="#111" stroke="#888" strokeWidth="2" />
+                <rect x="173" y="320" width="26" height="11" rx="3" fill="#111" stroke="#888" strokeWidth="2" />
+                {/* Fork brace */}
+                <line x1="158" y1="312" x2="188" y2="310" stroke="#666" strokeWidth="5" strokeLinecap="round" />
+                <SvgLabel x={150} y={215} text="3. Long Travel Front Fork" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Handlebar */}
+              {/* ── 5. MX HANDLEBAR ── */}
               <motion.g className="svg-part" style={{ x: hbX, y: hbY, rotate: hbR }}>
-                <path d="M 230 160 Q 250 140 280 150" fill="none" stroke="#222" strokeWidth="10" strokeLinecap="round" />
-                <circle cx="280" cy="150" r="8" fill="#111" />
-                <SvgLabel x={220} y={100} text="7. Handlebar" opacity={labelsOpacity} />
+                {/* Wide flat MX bar */}
+                <path d="M 185 148 L 254 138 L 322 143" fill="none" stroke="#aaa" strokeWidth="9" strokeLinecap="round" />
+                {/* Cross brace */}
+                <path d="M 212 145 L 294 140" fill="none" stroke="#666" strokeWidth="5" strokeLinecap="round" />
+                {/* Bar risers */}
+                <rect x="248" y="138" width="14" height="20" rx="3" fill="#333" stroke="#777" strokeWidth="2" />
+                {/* Grips */}
+                <rect x="183" y="143" width="24" height="10" rx="4" fill="#111" stroke="#555" strokeWidth="1.5" />
+                <rect x="318" y="138" width="24" height="10" rx="4" fill="#111" stroke="#555" strokeWidth="1.5" />
+                {/* Brake lever */}
+                <path d="M 198 149 L 186 162" fill="none" stroke="#666" strokeWidth="4" strokeLinecap="round" />
+                {/* Throttle */}
+                <circle cx="334" cy="143" r="5" fill="#444" />
+                <SvgLabel x={218} y={106} text="5. MX Handlebar" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Headlight */}
+              {/* ── 6. HEADLIGHT ── */}
               <motion.g className="svg-part" style={{ x: hlX, y: hlY }}>
-                <path d="M 180 160 C 200 160 210 180 200 200 C 180 200 170 180 180 160 Z" fill="#111" stroke="#333" strokeWidth="4" />
-                <circle cx="190" cy="180" r="10" fill="#fff" filter="drop-shadow(0 0 8px #fff)" />
-                <SvgLabel x={100} y={150} text="10. Headlight" opacity={labelsOpacity} />
+                {/* Angular dirt-bike headlight housing */}
+                <path d="M 228 192 L 270 186 L 267 213 L 225 219 Z" fill="#111" stroke="#333" strokeWidth="2.5" />
+                <path d="M 231 195 L 266 189 L 264 211 L 229 217 Z" fill="#1a1a1a" stroke="#444" strokeWidth="1" />
+                {/* Lens glow */}
+                <ellipse cx="248" cy="203" rx="15" ry="9" fill="rgba(255,255,180,0.08)" />
+                <circle cx="248" cy="203" r="6" fill="#fff" filter="drop-shadow(0 0 8px rgba(255,255,200,0.9))" />
+                <SvgLabel x={164} y={162} text="6. Headlight" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Windscreen */}
+              {/* ── 4. FRONT FENDER (was Windscreen) ── */}
               <motion.g className="svg-part" style={{ x: wsX, y: wsY, rotate: wsR }}>
-                <path d="M 180 160 Q 190 120 230 130" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="6" strokeLinecap="round" />
-                <SvgLabel x={140} y={90} text="11. Windscreen" opacity={labelsOpacity} />
+                {/* Short high dirt-bike mudguard */}
+                <path d="M 105 334 Q 130 268 192 298 L 196 311 Q 138 283 112 344 Z" fill="#111" stroke="url(#gold-grad)" strokeWidth="2" />
+                {/* Underside detail line */}
+                <path d="M 109 342 Q 135 276 193 305" fill="none" stroke="#333" strokeWidth="1.5" />
+                {/* Mounting tab */}
+                <rect x="148" y="268" width="18" height="10" rx="3" fill="#1a1a1a" stroke="#555" strokeWidth="1.5" />
+                <SvgLabel x={62} y={237} text="4. Front Fender" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Fuel Tank */}
+              {/* ── 7. FUEL TANK (compact, angular) ── */}
               <motion.g className="svg-part" style={{ y: tkY }}>
-                <path d="M 280 180 Q 320 120 400 160 Q 420 180 430 200 L 250 200 Z" fill="#111" stroke="#333" strokeWidth="2" />
-                <path d="M 290 170 Q 320 130 380 160" fill="none" stroke="url(#gold-grad)" strokeWidth="4" strokeLinecap="round" />
-                <SvgLabel x={300} y={100} text="5. Fuel Tank" opacity={labelsOpacity} />
+                {/* Tank body */}
+                <path d="M 265 170 Q 362 152 464 177 L 462 234 Q 372 247 265 224 Z" fill="#111" stroke="#333" strokeWidth="2" />
+                {/* Tank cap */}
+                <ellipse cx="352" cy="157" rx="18" ry="8" fill="#1a1a1a" stroke="#666" strokeWidth="2" />
+                <ellipse cx="352" cy="155" rx="10" ry="4" fill="#333" />
+                {/* Gold accent stripe */}
+                <path d="M 273 188 Q 363 170 457 194" fill="none" stroke="url(#gold-grad)" strokeWidth="3" strokeLinecap="round" />
+                <path d="M 276 200 Q 364 183 456 205" fill="none" stroke="hsl(46,79%,54%)" strokeWidth="1.5" strokeLinecap="round" opacity="0.45" />
+                {/* Angular top edge */}
+                <path d="M 265 170 L 292 154 Q 362 140 440 165 L 464 177" fill="none" stroke="#3a3a3a" strokeWidth="1.5" />
+                <SvgLabel x={296} y={120} text="7. Fuel Tank" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Seat */}
+              {/* ── 8. AIR FILTER BOX (was Seat) ── */}
               <motion.g className="svg-part" style={{ x: stX, y: stY, rotate: stR }}>
-                <path d="M 430 200 Q 480 180 550 180 Q 560 200 550 210 L 440 210 Z" fill="#050505" stroke="#222" strokeWidth="2" />
-                <SvgLabel x={460} y={140} text="4. Seat" opacity={labelsOpacity} />
+                {/* Box housing */}
+                <rect x="466" y="296" width="68" height="72" rx="6" fill="#141414" stroke="#444" strokeWidth="2" />
+                {/* Filter backing */}
+                <rect x="472" y="304" width="56" height="56" rx="4" fill="#0a0a0a" stroke="#333" strokeWidth="1" />
+                {/* Foam filter element (gold/amber colour) */}
+                <rect x="475" y="308" width="50" height="48" rx="3" fill="#1e1002" stroke="hsl(46,79%,54%)" strokeWidth="1.5" />
+                {/* Filter grid lines */}
+                {[314, 323, 332, 341, 350].map((y, i) => (
+                  <line key={i} x1="476" y1={y} x2="524" y2={y} stroke="hsl(46,60%,35%)" strokeWidth="1" opacity="0.6" />
+                ))}
+                {/* Side vent slots */}
+                {[301, 310, 319].map((y, i) => (
+                  <rect key={i} x="468" y={y} width="8" height="4" rx="1" fill="#222" />
+                ))}
+                <SvgLabel x={464} y={266} text="8. Air Filter Box" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Fairing */}
+              {/* ── 12. REAR SWINGARM (was Fairing) ── */}
               <motion.g className="svg-part" style={{ x: faX, y: faY, rotate: faR }}>
-                <path d="M 220 200 Q 280 200 350 250 L 250 300 Z" fill="#151515" stroke="#333" strokeWidth="2" />
-                <path d="M 250 220 L 300 250" fill="none" stroke="url(#gold-grad)" strokeWidth="4" />
-                <SvgLabel x={230} y={310} text="12. Fairing" opacity={labelsOpacity} />
+                {/* Upper arm tube */}
+                <path d="M 490 350 L 623 387" fill="none" stroke="url(#gold-grad)" strokeWidth="10" strokeLinecap="round" />
+                {/* Lower arm tube */}
+                <path d="M 490 363 L 623 398" fill="none" stroke="#666" strokeWidth="6" strokeLinecap="round" />
+                {/* Pivot end */}
+                <rect x="482" y="344" width="16" height="24" rx="3" fill="#1a1a1a" stroke="#888" strokeWidth="2" />
+                {/* Axle end */}
+                <rect x="618" y="382" width="16" height="22" rx="3" fill="#1a1a1a" stroke="#888" strokeWidth="2" />
+                {/* Chain slider */}
+                <path d="M 510 361 L 582 380" fill="none" stroke="#333" strokeWidth="4" strokeLinecap="round" />
+                <SvgLabel x={505} y={408} text="12. Rear Swingarm" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Chain */}
+              {/* ── 13. CHAIN & SPROCKET (was Chain) ── */}
               <motion.g className="svg-part" style={{ x: chX, y: chY, rotate: chR }}>
-                <path d="M 410 290 L 650 350" fill="none" stroke="#444" strokeWidth="6" strokeDasharray="4 4" />
-                <SvgLabel x={480} y={380} text="13. Chain" opacity={labelsOpacity} />
+                {/* Drive chain */}
+                <path d="M 460 388 L 620 393" fill="none" stroke="#444" strokeWidth="7" strokeDasharray="6 5" />
+                {/* Engine sprocket */}
+                <circle cx="462" cy="388" r="14" fill="#111" stroke="#555" strokeWidth="2" />
+                {[0,45,90,135,180,225,270,315].map((d) => (
+                  <line key={d}
+                    x1={462+Math.cos(d*Math.PI/180)*8}  y1={388+Math.sin(d*Math.PI/180)*8}
+                    x2={462+Math.cos(d*Math.PI/180)*14} y2={388+Math.sin(d*Math.PI/180)*14}
+                    stroke="#666" strokeWidth="4" strokeLinecap="round"
+                  />
+                ))}
+                <circle cx="462" cy="388" r="5" fill="url(#gold-grad)" />
+                {/* Rear sprocket ring */}
+                <circle cx="620" cy="393" r="20" fill="none" stroke="#444" strokeWidth="4" />
+                {[0,30,60,90,120,150,180,210,240,270,300,330].map((d) => (
+                  <line key={d}
+                    x1={620+Math.cos(d*Math.PI/180)*13} y1={393+Math.sin(d*Math.PI/180)*13}
+                    x2={620+Math.cos(d*Math.PI/180)*20} y2={393+Math.sin(d*Math.PI/180)*20}
+                    stroke="#555" strokeWidth="4" strokeLinecap="round"
+                  />
+                ))}
+                <SvgLabel x={488} y={422} text="13. Chain & Sprocket" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Footpegs */}
+              {/* ── 10. SKID PLATE (was Footpegs) ── */}
               <motion.g className="svg-part" style={{ x: fpX, y: fpY, rotate: fpR }}>
-                <rect x="440" y="325" width="30" height="10" rx="4" fill="#222" stroke="#555" strokeWidth="2" />
-                <SvgLabel x={400} y={360} text="14. Footpegs" opacity={labelsOpacity} />
+                {/* Aluminium bash guard */}
+                <path d="M 353 392 L 468 392 L 470 408 L 351 409 Z" fill="#1a1a1a" stroke="#888" strokeWidth="2.5" />
+                {/* Mounting bolts */}
+                <circle cx="370" cy="400" r="4" fill="#666" stroke="#888" strokeWidth="1" />
+                <circle cx="452" cy="400" r="4" fill="#666" stroke="#888" strokeWidth="1" />
+                {/* Ribbing */}
+                {[382, 400, 418, 436].map((x, i) => (
+                  <line key={i} x1={x} y1="392" x2={x} y2="409" stroke="#333" strokeWidth="1.5" />
+                ))}
+                <SvgLabel x={355} y={418} text="10. Skid Plate" opacity={labelsOpacity} />
               </motion.g>
 
-              {/* Kickstand */}
+              {/* ── 11. REAR SHOCK ABSORBER (was Kickstand) ── */}
               <motion.g className="svg-part" style={{ x: ksX, y: ksY, rotate: ksR }}>
-                <line x1="380" y1="350" x2="350" y2="420" stroke="#333" strokeWidth="8" strokeLinecap="round" />
-                <SvgLabel x={280} y={420} text="15. Kickstand" opacity={labelsOpacity} />
+                {/* Shock body / outer tube */}
+                <line x1="500" y1="220" x2="542" y2="352" stroke="#777" strokeWidth="13" strokeLinecap="round" />
+                {/* Shaft (gold) */}
+                <line x1="501" y1="230" x2="537" y2="336" stroke="url(#gold-grad)" strokeWidth="5" strokeLinecap="round" />
+                {/* Spring coils */}
+                <path d="M 506 248 Q 522 253 512 263 Q 522 268 512 278 Q 522 283 512 293 Q 522 298 512 308" fill="none" stroke="#555" strokeWidth="3" strokeLinecap="round" />
+                {/* Top mount */}
+                <circle cx="500" cy="220" r="9" fill="#1a1a1a" stroke="url(#gold-grad)" strokeWidth="2" />
+                {/* Bottom mount */}
+                <circle cx="542" cy="352" r="9" fill="#1a1a1a" stroke="url(#gold-grad)" strokeWidth="2" />
+                <SvgLabel x={542} y={282} text="11. Rear Shock Absorber" opacity={labelsOpacity} />
               </motion.g>
             </svg>
           </div>

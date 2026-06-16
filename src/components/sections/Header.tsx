@@ -41,7 +41,7 @@ const Header = () => {
           alt="Brothers Garage"
           height={50}
           width={100}
-          className="object-contain"
+          className="object-contain rounded-full w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32 h-auto cursor-pointer"
         />
       </div>
 

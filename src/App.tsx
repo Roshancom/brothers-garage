@@ -1,18 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-  useMotionValue,
-  type MotionValue,
-} from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { StoryWord } from '@/components/ui/StoryWord';
-import { WavyText } from '@/components/ui/WavyText';
-import { ScrollIcon } from '@/components/ui/ScrollIcon';
-import { Counter } from '@/components/ui/Counter';
-import { SvgLabel } from '@/components/ui/SvgLabel';
+import React, { useEffect } from 'react';
+
 import { OpeningHoursBar } from '@/components/sections/OpeningHoursBar';
 import { HeroBanner } from '@/components/sections/HeroBanner';
 import { GallerySection } from '@/components/sections/GallerySection';

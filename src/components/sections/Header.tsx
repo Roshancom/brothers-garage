@@ -1,43 +1,43 @@
-import { useEffect, useState } from "react";
-import { Menu, Phone, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from 'react';
+import { Menu, Phone, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
 
-  const navLinks = ["Home", "Services", "Gallery", "Contact"];
+  const navLinks = ['Home', 'Services', 'Gallery', 'Contact'];
   const navHrefs: Record<string, string> = {
-    Home: "#home",
-    Services: "#services",
-    Gallery: "#gallery",
-    Contact: "#contact",
+    Home: '#home',
+    Services: '#services',
+    Gallery: '#gallery',
+    Contact: '#contact',
   };
 
   useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <nav
       className={`fixed top-0 w-full z-50 px-4 md:px-6 flex items-center justify-between h-16 transition-all duration-300 ${
         navScrolled
-          ? "bg-black/95 shadow-[0_4px_24px_rgba(0,0,0,0.6)] border-b border-border/20"
-          : "bg-transparent border-b border-border/5"
+          ? 'bg-black/95 shadow-[0_4px_24px_rgba(0,0,0,0.6)] border-b border-border/20'
+          : 'bg-transparent border-b border-border/5'
       }`}
       style={{
-        backdropFilter: navScrolled ? "blur(12px)" : "blur(4px)",
-        WebkitBackdropFilter: navScrolled ? "blur(12px)" : "blur(4px)",
+        backdropFilter: navScrolled ? 'blur(12px)' : 'blur(4px)',
+        WebkitBackdropFilter: navScrolled ? 'blur(12px)' : 'blur(4px)',
       }}
     >
       {/* Logo */}
       <div className="flex items-center gap-2 shrink-0">
         <img
-          src="https://github.com/Roshancom/brothers-garage/blob/main/public/images/logo.png?raw=true"
+          src="https://github.com/Roshancom/brothers-garage/blob/main/public/logo.png?raw=true"
           alt="Brothers Garage"
           height={50}
           width={100}
@@ -85,7 +85,7 @@ const Header = () => {
       <button
         className="md:hidden text-muted-foreground hover:text-primary transition-colors p-2"
         onClick={() => setMobileMenuOpen((v) => !v)}
-        aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
       >
         {mobileMenuOpen ? (
           <X className="w-6 h-6" />
@@ -101,8 +101,8 @@ const Header = () => {
           animate={{ opacity: 1, y: 0 }}
           className="absolute top-16 left-0 right-0 bg-black/97 border-b border-border/20 py-3 flex flex-col md:hidden"
           style={{
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
           }}
         >
           {navLinks.map((link) => (

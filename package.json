@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "PORT=8080 BASE_PATH=/ vite --config vite.config.ts --host 0.0.0.0",
     "build": "PORT=8080 BASE_PATH=/ vite build --config vite.config.ts",
-    "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
+    "start": "PORT=8080 BASE_PATH=/ vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
